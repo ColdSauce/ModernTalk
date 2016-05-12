@@ -1,27 +1,21 @@
 package me.shreyasr.talk
 
-import org.scalajs
-import org.scalajs.dom
-import dom.document
+import org.scalajs.jquery.jQuery
 
 import scala.scalajs.js.JSApp
-import scala.scalajs.js.annotation.JSExport
 
 object App extends JSApp {
 
   def main(): Unit = {
-    appendPar(document.body, "Hello world!")
+    jQuery(setupUi _)
   }
 
-  @JSExport
+  def setupUi(): Unit = {
+    jQuery("#click-me-button").click(onButtonClick _)
+    jQuery("body").append("<p>Hello World</p>")
+  }
+
   def onButtonClick(): Unit = {
-    appendPar(document.body, "You clicked the button!")
-  }
-
-  def appendPar(targetNode: scalajs.dom.Node, text: String): Unit = {
-    val parNode = document.createElement("p")
-    val textNode = document.createTextNode(text)
-    parNode.appendChild(textNode)
-    targetNode.appendChild(parNode)
+    jQuery("body").append("<p>You clicked the button!</p>")
   }
 }
