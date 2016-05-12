@@ -7,9 +7,13 @@
 <body>
 <!-- Include Scala.js compiled code -->
 <script type="text/javascript" src="./target/scala-2.11/moderntalk-fastopt.js"></script>
-<!-- Run tutorial.webapp.TutorialApp -->
+<!-- Run Scala code -->
 <script type="text/javascript">
-      me.shreyasr.talk.App().main();
-    </script>
+    me.shreyasr.talk.App().main();
+</script>
+
+<button id="click-me-button" type="button"
+        onclick="me.shreyasr.talk.App().onButtonClick()">Click me!</button>
+
 </body>
 </html>
