@@ -1,3 +1,1 @@
-import java.util.logging.Level
-
-logLevel := Level.Warn
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.9")

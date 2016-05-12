@@ -1,4 +1,4 @@
-/target
+target
 *.class
 
 *.iml
@@ -6,3 +6,5 @@
 *.iws
 /.idea
 /out
+
+/node_modules
