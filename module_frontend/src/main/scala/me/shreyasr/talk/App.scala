@@ -12,7 +12,7 @@ object App extends JSApp {
 
   def setupUi(): Unit = {
     jQuery("#click-me-button").click(onButtonClick _)
-    jQuery("body").append("<p>Hello World</p>")
+    jQuery("body").append(s"<p>${TalkModel.str}</p>")
   }
 
   def onButtonClick(): Unit = {
