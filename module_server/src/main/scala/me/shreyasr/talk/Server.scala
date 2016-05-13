@@ -1,12 +1,15 @@
+package me.shreyasr.talk
+
 class Server(host: String, port: Int) {
 
   import java.net.InetSocketAddress
-  import org.log4s.getLogger
+
   import org.http4s.server.blaze.BlazeBuilder
+
   import scala.concurrent.duration.Duration
 
-  private val logger = getLogger
-  logger.info(s"Starting Http4s-blaze WootServer on '$host:$port'")
+  private val logger = org.log4s.getLogger
+  logger.info(s"Starting Http4s-blaze Server on '$host:$port'")
 
   def run(): Unit = {
     BlazeBuilder
@@ -14,15 +17,8 @@ class Server(host: String, port: Int) {
       .withWebSockets(true)
       .withIdleTimeout(Duration.Inf)
       .mountService(new StaticRoutes().service, "/")
+      .mountService(new WebsocketRoutes().service, "/")
       .run
       .awaitShutdown()
   }
-}
-
-object Main extends App {
-
-  import scala.util.Properties.envOrNone
-  val ip   = envOrNone("HOST") getOrElse "0.0.0.0"
-  val port = envOrNone("PORT").map(_.toInt) getOrElse 8080
-  new Server(ip, port).run()
 }

@@ -1,3 +1,5 @@
+package me.shreyasr.talk
+
 import org.http4s.dsl._
 import org.http4s.{HttpService, Request, StaticFile}
 import org.log4s.getLogger
