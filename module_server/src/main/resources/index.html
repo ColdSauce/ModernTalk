@@ -3,13 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Modern Talk</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 <script type="text/javascript" src="moderntalk-frontend-jsdeps.js"></script>
 <script type="text/javascript" src="moderntalk-frontend-fastopt.js"></script>
 <script type="text/javascript" src="moderntalk-frontend-launcher.js"></script>
 
-<button id="click-me-button" type="button">Click me!</button>
+<div id="connect-div">
+    <input type=text id="name-text" />
+    <button id="connect-button" type="button">Connect</button>
+</div>
+
+<h1>ModernChat</h1>
+<div class="row">
+    <div class="col">
+        <label for="ta1">You</label>
+        <textarea id="ta1">textarea 1</textarea>
+    </div>
+    <div class="col">
+        <label for="ta2" id="other-person-label">Other Person</label>
+        <textarea id="ta2">textarea 2</textarea>
+    </div>
+</div>
 
 </body>
 </html>

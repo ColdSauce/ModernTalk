@@ -4,23 +4,25 @@ import org.http4s.HttpService
 import org.http4s.dsl._
 import org.http4s.server.websocket.WS
 import org.http4s.websocket.WebsocketBits.{Text, WebSocketFrame}
-
-import scala.concurrent.duration._
-import scalaz.concurrent.Strategy.{DefaultStrategy, DefaultTimeoutScheduler}
-import scalaz.concurrent.Task
-import scalaz.stream.{Exchange, Process, Sink, time}
+import upickle.default._
+import scalaz.concurrent.Strategy.DefaultStrategy
+import scalaz.stream.Exchange
+import scalaz.stream.async.unboundedQueue
 
 class WebsocketRoutes() {
   private val log = org.log4s.getLogger
 
+  val queue = unboundedQueue[WebSocketFrame]
+
   val service = HttpService {
     case req @ GET -> Root / "ws" =>
-      log.info("GET WEBSOCKET")
-      val src = time.awakeEvery(1.seconds)(DefaultStrategy, DefaultTimeoutScheduler).map{ d => Text(s"Ping! $d") }
-      val sink: Sink[Task, WebSocketFrame] = Process.constant {
-        case Text(t, _) => Task.delay(log.info(t))
-        case f          => Task.delay(log.info(s"Unknown type: $f"))
+      val name = req.params("name")
+      log.info("Connected: " + name)
+      val src = queue.dequeue filter {
+        case Text(msg, _) => name != read[TalkModel](msg).name
+      } collect {
+        case Text(msg, _) => Text(msg)
       }
-      WS(Exchange(src, sink))
+      WS(Exchange(src, queue.enqueue))
   }
 }

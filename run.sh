@@ -1,0 +1,1 @@
+sbt ~server/re-start

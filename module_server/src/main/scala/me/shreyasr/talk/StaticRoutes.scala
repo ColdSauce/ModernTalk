@@ -22,6 +22,6 @@ class StaticRoutes {
 
   val service = HttpService {
     case req if req.pathInfo == "/"                  => req.serve("/index.html")
-    case req if req.endsWith(".html", ".js", ".map") => req.serve()
+    case req if req.endsWith(".html", ".js", ".css", ".map") => req.serve()
   }
 }

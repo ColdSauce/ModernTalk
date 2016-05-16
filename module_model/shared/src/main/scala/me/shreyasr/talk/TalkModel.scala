@@ -1,5 +1,5 @@
 package me.shreyasr.talk
 
-object TalkModel {
-  val str = "MODEL"
+case class TalkModel(name: String, msg: String) {
+
 }
